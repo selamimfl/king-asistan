@@ -4,18 +4,18 @@ import random
 # Kart destesini tanımla
 renkler = ['Kupa', 'Maça', 'Karo', 'Sinek']
 degerler = ['As', 'Papaz', 'Kız', 'Vale', '10', '9', '8', '7', '6', '5', '4', '3', '2']
-
-# Tüm desteyi oluştur
 deste = [f"{renk} {deger}" for renk in renkler for deger in degerler]
 
-# Rastgele 13 kart seç
-el = random.sample(deste, 13)
+# Kartları sadece bir kez seçmek için session_state kullan
+if "el" not in st.session_state:
+    st.session_state.el = random.sample(deste, 13)
+
+el = st.session_state.el
 
 st.title("King Oyun Asistanı")
 st.subheader("Elinizdeki Kartlar:")
 st.write(', '.join(el))
 
-# Kullanıcıdan tür seçimi al
 oyun_turu = st.radio("Oynamak istediğiniz tür nedir?", ["Ceza", "Koz"])
 
 def ceza_analizi(el):
